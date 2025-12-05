@@ -10,6 +10,7 @@ import { Badge } from "../ui/badge"
 import { Command, CommandGroup, CommandInput, CommandItem } from "../ui/command"
 import { Checkbox } from "../ui/checkbox"
 import { Circle, CircleCheckBig, CircleOff, CircleQuestionMark, Timer } from "lucide-react"
+import { Label } from "../ui/label"
 
 type Status = {
     value: string,
@@ -97,11 +98,11 @@ export const StatusDropDown = () => {
                                         // )
                                     }}
                                 >
-                                    <div className="flex items-center gap-3">
+                                    <Label className="flex items-center gap-3">
                                         <Checkbox />
                                         <Icon />
                                         <span>{lable}</span>
-                                    </div>
+                                    </Label>
                                     <span>23</span>
                                 </CommandItem>
                             ))}

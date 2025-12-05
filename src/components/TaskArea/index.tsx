@@ -5,62 +5,106 @@ import { Button } from '../ui/button'
 import { IoCloseSharp } from 'react-icons/io5'
 import { PriorityDropDown } from '../drop-downs/PriorityDropDown'
 import { ViewColumnsDropDoun } from '../drop-downs/ViewColumnsDropDoun'
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '../ui/table'
-import { tasks, type Task } from '@/data/tasks-data'
 import TasksTable from './TasksTable'
 import { StatusDropDown } from '../drop-downs/StatusDropDown'
-import { Separator } from '../ui/separator'
-import { type Table as TableType } from '@tanstack/react-table'
+import type {
+    VisibilityState,
+    RowSelectionState,
+    Table as TableType
+} from '@tanstack/react-table'
 import FooterArea from './FooterArea'
-
-type TableContextType = {
-    table: TableType<Task> | undefined,
-    setTable: Dispatch<React.SetStateAction<TableType<Task> | undefined>>,
-    // setTable: () => void,
-}
-
-export const TableContext = createContext<TableContextType | null>(null);
+import { type Task, tasks } from '@/data/tasks-data'
+import {
+    getCoreRowModel,
+    getSortedRowModel,
+    type SortingState,
+    useReactTable,
+    type ColumnFiltersState,
+    getFilteredRowModel,
+    getPaginationRowModel
+} from "@tanstack/react-table"
+import { tasksColumns } from './tasks-columns';
 
 
 export function TaskArea() {
-    const [table, setTable] = useState<TableType<Task>>()
+    const [sorting, setSorting] = useState<SortingState>([])
+    const [globalFilter, setGlobalFilter] = useState('')
+    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+    const [pagination, setPagination] = useState({
+        pageIndex: 1,
+        pageSize: 5
+    })
+    const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
+
+    const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
+
+    const table = useReactTable({
+        data: tasks,
+        columns: tasksColumns,
+        getCoreRowModel: getCoreRowModel(),
+
+        getSortedRowModel: getSortedRowModel(),
+        onSortingChange: setSorting,
+
+        getFilteredRowModel: getFilteredRowModel(),
+        onGlobalFilterChange: setGlobalFilter,
+        onColumnFiltersChange: setColumnFilters,
+
+        getPaginationRowModel: getPaginationRowModel(),
+        onPaginationChange: setPagination,
+
+        onRowSelectionChange: setRowSelection,
+
+        onColumnVisibilityChange: setColumnVisibility,
+
+        state: {
+            sorting,
+            globalFilter,
+            columnFilters,
+            pagination,
+            rowSelection,
+            columnVisibility
+        },
+    });
+
     return (
-        <div className='px-7 mt-5'>
-            <TableContext.Provider value={{ table, setTable }}>
-                <Card>
-                    <CardHeader >
-                        <div className='space-y-2'>
-                            <h1 className='text-3xl'>Welcome Back!</h1>
-                            <p className='text-sm text-muted-foreground'>Here's a list of your tasks for this month.</p>
-                        </div>
+        <Card className='px-7 mt-5 max-w-300 mx-auto'>
+            <CardHeader >
+                <div className='space-y-2'>
+                    <h1 className='text-3xl'>Welcome Back!</h1>
+                    <p className='text-sm text-muted-foreground'>Here's a list of your tasks for this month.</p>
+                </div>
 
-                        <div className='flex items-center justify-between'>
-                            <div className='flex items-center gap-2'>
-                                <SearchInput />
+                <div className='flex items-center justify-between'>
+                    <div className='flex items-center gap-2'>
+                        <SearchInput table={table} />
 
-                                <PriorityDropDown />
-                                <StatusDropDown />
+                        <StatusDropDown />
+                        <PriorityDropDown />
 
-                                <Button variant={'ghost'} className='h-10'>
-                                    <span>Reset</span>
-                                    <IoCloseSharp />
-                                </Button>
-                            </div>
+                        <Button
+                            variant={'ghost'}
+                            className='h-10 hidden'
+                        >
+                            <span>Reset</span>
+                            <IoCloseSharp />
+                        </Button>
+                    </div>
 
-                            <div className='flex items-center gap-2'>
-                                <ViewColumnsDropDoun />
-                                <Button>Add Task</Button>
-                            </div>
-                        </div>
-                    </CardHeader>
-                    {/* <CardContent>
-                        <TasksTable />
-                    </CardContent>
-                    <CardFooter>
-                        <FooterArea />
-                    </CardFooter> */}
-                </Card>
-            </TableContext.Provider>
-        </div>
+                    <div className='flex items-center gap-2'>
+                        <ViewColumnsDropDoun table={table} />
+                        <Button
+                            onClick={() => alert('this is a demo button')}
+                        >Add Task</Button>
+                    </div>
+                </div>
+            </CardHeader>
+            <CardContent>
+                <TasksTable table={table} />
+            </CardContent>
+            <CardFooter>
+                <FooterArea table={table} />
+            </CardFooter>
+        </Card>
     )
 }

@@ -1,9 +1,8 @@
-import React, { useContext } from 'react'
 import { Input } from '../ui/input'
-import { TableContext } from '.'
+import type { Task } from '@/data/tasks-data';
+import type { Table as TableType } from '@tanstack/react-table';
 
-export default function SearchInput() {
-    const table = useContext(TableContext)?.table;
+export default function SearchInput({ table }: { table: TableType<Task> }) {
     return (
         <Input
             type='text'

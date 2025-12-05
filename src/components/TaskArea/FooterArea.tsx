@@ -1,24 +1,29 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { TableContext } from '.';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { Button } from '../ui/button';
-import { ChevronLast, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
+import type { Task } from '@/data/tasks-data';
+import type { Table as TableType } from '@tanstack/react-table';
 
 
-export default function FooterArea() {
-    const table = useContext(TableContext)?.table;
-
+export default function FooterArea({ table }: { table: TableType<Task> }) {
     const pageSizes = [5, 10, 20, 25, 30, 40, 50]
     return (
         <div className='flex justify-between w-full items-center'>
-            <p>0 of 100 row(s) selected.</p>
+            <p>
+                {`
+                ${table.getSelectedRowModel().rows.length}
+                of
+                ${table.getPreSelectedRowModel().rows.length}
+                row(s) selected.
+                
+                `}
+            </p>
 
             <div className='flex items-center gap-8'>
                 <div className='flex gap-3 items-center'>
                     <p>Row per page</p>
                     <Select
                         onValueChange={e => table?.setPageSize(Number(e))}
-                    // value={pageSize}
                     >
                         <SelectTrigger>
                             <SelectValue placeholder={table?.getState().pagination.pageSize ?? '?'} />
@@ -30,12 +35,23 @@ export default function FooterArea() {
                         </SelectContent>
                     </Select>
                 </div>
-                <p>
-                    Page
-                    {table?.getState().pagination.pageIndex}
-                    of
-                    {table?.getPageCount()}
-                </p>
+                {table?.getState().pagination.pageIndex === 0
+                    ? (
+                        <p>
+                            Page
+                            {table?.getState().pagination.pageIndex + 1}
+                            of
+                            {table?.getPageCount()}
+                        </p>
+                    )
+                    : (
+                        <p>
+                            Page
+                            {table?.getState().pagination.pageIndex}
+                            of
+                            {table?.getPageCount() - 1}
+                        </p>
+                    )}
 
                 <div className='space-x-2'>
                     <Button

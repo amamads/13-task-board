@@ -48,11 +48,6 @@ const SortableHeader: React.FC<SortableHeaderProps> = ({ column, lable }) => {
         </DropdownMenu>
     )
 }
-// 
-// 
-// 
-// 
-// 
 // function StatusIcon({ status }: { status: Task['status'] }) {
 function StatusIcon({ status }: { status: string }) {
     let Icon;
@@ -86,10 +81,24 @@ function sortingFn(column: any) {
 }
 
 export const tasksColumns: ColumnDef<Task>[] = [
+
     {
         id: 'checkbox',
-        header: () => <Checkbox />,
-        cell: () => <Checkbox />
+        header: ({ table }) => (
+            <Checkbox
+                onCheckedChange={(value) => table.toggleAllRowsSelected(!!value)}
+                checked={
+                    table.getIsAllPageRowsSelected() ||
+                    (table.getIsSomePageRowsSelected() && "indeterminate")
+                }
+            />
+        ),
+        cell: ({ row }) => (
+            <Checkbox
+                onCheckedChange={(value) => row.toggleSelected(!!value)}
+                checked={row.getIsSelected()}
+            />
+        ),
     },
     {
         accessorKey: 'taskId',
