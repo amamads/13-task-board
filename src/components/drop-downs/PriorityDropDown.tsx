@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { IoMdArrowUp } from "react-icons/io"
 import { IoArrowBack, IoArrowDown } from "react-icons/io5"
 import type { IconType } from "react-icons/lib"
@@ -10,6 +10,8 @@ import { Badge } from "../ui/badge"
 import { Command, CommandGroup, CommandInput, CommandItem } from "../ui/command"
 import { Checkbox } from "../ui/checkbox"
 import { Label } from "../ui/label"
+import type { Task } from "@/data/tasks-data"
+import type { Table as TableType } from "@tanstack/react-table"
 
 type Status = {
     value: string,
@@ -35,9 +37,13 @@ const statuses: Status[] = [
     },
 ]
 
-export const PriorityDropDown = () => {
+export const PriorityDropDown = ({ table }: { table: TableType<Task> }) => {
     const [open, setOpen] = useState(false)
-    const [selectedStatus, setSelectedStatus] = useState<Status | null>(null)
+    const [selectedStatus, setSelectedStatus] = useState<string[]>([])
+
+    useEffect(() => {
+        table.getColumn('priority')?.setFilterValue(selectedStatus)
+    }, [selectedStatus])
     return (
         <div>
             <Popover open={open} onOpenChange={setOpen}>
@@ -58,16 +64,22 @@ export const PriorityDropDown = () => {
                                 className="h-6 border border-gray-300"
                             />
 
-                            {/* <div>
-                                <Badge variant={'secondary'}>Low</Badge>
-                                <Badge variant={'secondary'}>Medium</Badge>
-                            </div> */}
+                            <div>
+                                {selectedStatus.map(status => (
+                                    <Badge variant={'secondary'}>{status}</Badge>
+                                ))}
+                            </div>
                         </div>
                     </Button>
                 </PopoverTrigger>
 
                 <PopoverContent className="p-0 w-52" side="bottom" align="center">
-                    <Command>
+                    <Command
+                        onValueChange={e => {
+                            console.log(e);
+                            console.log('object');
+                        }}
+                    >
                         <CommandInput placeholder="Change priority ..." />
                         <CommandGroup>
                             {statuses.map(({ value, lable, icon: Icon }) => (
@@ -75,18 +87,25 @@ export const PriorityDropDown = () => {
                                     key={value}
                                     value={value}
                                     className="flex justify-between"
-                                    onSelect={(value) => {
-                                        setSelectedStatus(
-                                            statuses.find((priority => priority.value === value)) || null
-                                        )
-                                    }}
                                 >
                                     <Label className="flex items-center gap-3">
-                                        <Checkbox />
+                                        <Checkbox
+                                            onCheckedChange={(checked) => {
+                                                setSelectedStatus(prev => {
+                                                    const arr = prev ?? []
+                                                    if (checked) return arr.includes(lable) ? arr : [...arr, lable]
+                                                    return arr.filter(s => s !== lable)
+                                                })
+                                            }}
+                                        />
                                         <Icon />
                                         <span>{lable}</span>
                                     </Label>
-                                    <span>23</span>
+                                    <span>{
+                                        table.getCoreRowModel().rows
+                                            .filter(row => row.getValue("priority") === lable)
+                                            .length
+                                    }</span>
                                 </CommandItem>
                             ))}
                         </CommandGroup>

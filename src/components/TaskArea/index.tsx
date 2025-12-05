@@ -79,8 +79,8 @@ export function TaskArea() {
                     <div className='flex items-center gap-2'>
                         <SearchInput table={table} />
 
-                        <StatusDropDown />
-                        <PriorityDropDown />
+                        <StatusDropDown table={table} />
+                        <PriorityDropDown table={table} />
 
                         <Button
                             variant={'ghost'}

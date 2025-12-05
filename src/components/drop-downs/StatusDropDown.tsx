@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { IoMdArrowUp } from "react-icons/io"
 import { IoArrowBack, IoArrowDown } from "react-icons/io5"
 import type { IconType } from "react-icons/lib"
@@ -11,6 +11,8 @@ import { Command, CommandGroup, CommandInput, CommandItem } from "../ui/command"
 import { Checkbox } from "../ui/checkbox"
 import { Circle, CircleCheckBig, CircleOff, CircleQuestionMark, Timer } from "lucide-react"
 import { Label } from "../ui/label"
+import type { Task } from "@/data/tasks-data"
+import type { Table as TableType } from "@tanstack/react-table"
 
 type Status = {
     value: string,
@@ -52,9 +54,12 @@ const statuses: Status[] = [
     },
 ]
 
-export const StatusDropDown = () => {
-    // const [open, setOpen] = useState(false)
-    // const [selectedStatus, setSelectedStatus] = useState<Status | null>(null)
+export const StatusDropDown = ({ table }: { table: TableType<Task> }) => {
+    const [selectedStatus, setSelectedStatus] = useState<string[]>([])
+
+    useEffect(() => {
+        table.getColumn('status')?.setFilterValue(selectedStatus)
+    }, [selectedStatus])
     return (
         <div>
             <Popover>
@@ -99,11 +104,24 @@ export const StatusDropDown = () => {
                                     }}
                                 >
                                     <Label className="flex items-center gap-3">
-                                        <Checkbox />
+                                        {/* <Checkbox /> */}
+                                        <Checkbox
+                                            onCheckedChange={(checked) => {
+                                                setSelectedStatus(prev => {
+                                                    const arr = prev ?? []
+                                                    if (checked) return arr.includes(lable) ? arr : [...arr, lable]
+                                                    return arr.filter(s => s !== lable)
+                                                })
+                                            }}
+                                        />
                                         <Icon />
                                         <span>{lable}</span>
                                     </Label>
-                                    <span>23</span>
+                                    <span>{
+                                        table.getCoreRowModel().rows
+                                            .filter(row => row.getValue("status") === lable)
+                                            .length
+                                    }</span>
                                 </CommandItem>
                             ))}
                         </CommandGroup>

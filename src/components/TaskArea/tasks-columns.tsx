@@ -8,6 +8,7 @@ import { IoMdArrowDown, IoMdArrowUp } from "react-icons/io";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { GrHide } from "react-icons/gr";
 import type { Task } from "@/data/tasks-data";
+import { Input } from "../ui/input";
 
 type SortableHeaderProps = {
     column: Column<Task, unknown>,
@@ -110,6 +111,10 @@ export const tasksColumns: ColumnDef<Task>[] = [
     },
     {
         accessorKey: 'status',
+        filterFn: (row, columnId, filterValues: string[]) => {
+            if (!Array.isArray(filterValues) || filterValues.length === 0) return true
+            return filterValues.some(s => s === row.getValue(columnId))
+        },
         header: ({ column }) => <SortableHeader column={column} lable="Status" />,
         cell: (row) => (
             <div className="flex space-x-2">
@@ -120,6 +125,10 @@ export const tasksColumns: ColumnDef<Task>[] = [
     },
     {
         accessorKey: 'priority',
+        filterFn: (row, columnId, filterValues: string[]) => {
+            if (!Array.isArray(filterValues) || filterValues.length === 0) return true
+            return filterValues.some(s => s === row.getValue(columnId))
+        },
         header: ({ column }) => <SortableHeader column={column} lable="Priority" />,
         cell: (row) => (
             <div className="flex space-x-2">
