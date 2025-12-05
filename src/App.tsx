@@ -5,8 +5,9 @@ export default function App() {
   return (
     <div className='w-9/10 mx-auto'>
       <Navbar />
-      <StateCards />
       <TaskArea />
+      {/* <TasksTable /> */}
+      {/* <StateCards /> */}
     </div>
   )
 }

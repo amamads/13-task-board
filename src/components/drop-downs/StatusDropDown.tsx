@@ -9,37 +9,54 @@ import { Separator } from "../ui/separator"
 import { Badge } from "../ui/badge"
 import { Command, CommandGroup, CommandInput, CommandItem } from "../ui/command"
 import { Checkbox } from "../ui/checkbox"
+import { Circle, CircleCheckBig, CircleOff, CircleQuestionMark, Timer } from "lucide-react"
 
 type Status = {
     value: string,
     lable: string,
-    icon: IconType
+    icon: IconType,
+    count: number,
 }
 
 const statuses: Status[] = [
     {
-        value: 'low',
-        lable: 'Low',
-        icon: IoArrowDown
+        value: 'backlog',
+        lable: 'Backlog',
+        icon: CircleQuestionMark,
+        count: 0,
     },
     {
-        value: 'medium',
-        lable: 'Medium',
-        icon: IoArrowBack
+        value: 'todo',
+        lable: 'Todo',
+        icon: Circle,
+        count: 0,
     },
     {
-        value: 'high',
-        lable: 'High',
-        icon: IoMdArrowUp
+        value: 'inProgress',
+        lable: 'In Progress',
+        icon: Timer,
+        count: 0,
+    },
+    {
+        value: 'done',
+        lable: 'Done',
+        icon: CircleCheckBig,
+        count: 0,
+    },
+    {
+        value: 'canceled',
+        lable: 'Canceled',
+        icon: CircleOff,
+        count: 0,
     },
 ]
 
-export const PriorityDropDown = () => {
-    const [open, setOpen] = useState(false)
-    const [selectedStatus, setSelectedStatus] = useState<Status | null>(null)
+export const StatusDropDown = () => {
+    // const [open, setOpen] = useState(false)
+    // const [selectedStatus, setSelectedStatus] = useState<Status | null>(null)
     return (
         <div>
-            <Popover open={open} onOpenChange={setOpen}>
+            <Popover>
                 <PopoverTrigger asChild>
                     <Button
                         size={'sm'}
@@ -49,7 +66,7 @@ export const PriorityDropDown = () => {
                         <div className="flex items-center gap-4">
                             <div className="flex items-center gap-2">
                                 <GoPlusCircle />
-                                <span>Priority</span>
+                                <span>Status</span>
                             </div>
 
                             <Separator
@@ -75,9 +92,9 @@ export const PriorityDropDown = () => {
                                     value={value}
                                     className="flex justify-between"
                                     onSelect={(value) => {
-                                        setSelectedStatus(
-                                            statuses.find((priority => priority.value === value)) || null
-                                        )
+                                        // setSelectedStatus(
+                                        //     statuses.find((priority => priority.value === value)) || null
+                                        // )
                                     }}
                                 >
                                     <div className="flex items-center gap-3">
