@@ -84,6 +84,11 @@ export const StatusDropDown = ({ table }: { table: TableType<Task> }) => {
                                 <Badge variant={'secondary'}>Low</Badge>
                                 <Badge variant={'secondary'}>Medium</Badge>
                             </div> */}
+                            <div>
+                                {selectedStatus.map(status => (
+                                    <Badge variant={'secondary'}>{status}</Badge>
+                                ))}
+                            </div>
                         </div>
                     </Button>
                 </PopoverTrigger>
