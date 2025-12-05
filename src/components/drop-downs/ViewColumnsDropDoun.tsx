@@ -1,15 +1,12 @@
-import type { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu";
-import { useState } from "react";
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
 import { BiColumns } from "react-icons/bi";
+import type { Task } from "@/data/tasks-data";
+import type { Table as TableType } from "@tanstack/react-table";
 
-type Checked = DropdownMenuCheckboxItemProps['checked']
+export const ViewColumnsDropDoun = ({ table }: { table: TableType<Task> }) => {
+    const dropdownColumnsIds = ['title', 'status', 'priority']
 
-export const ViewColumnsDropDoun = () => {
-    const [showStatusBar, setShowStatusBar] = useState<Checked>(true)
-    const [showActiveBar, setShowActiveBar] = useState<Checked>(false)
-    const [showPanel, setShowPanel] = useState<Checked>(false)
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -21,25 +18,19 @@ export const ViewColumnsDropDoun = () => {
             <DropdownMenuContent className="w-56">
                 <DropdownMenuLabel>Toggle Columns</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuCheckboxItem
-                    checked={showStatusBar}
-                    onCheckedChange={setShowStatusBar}
-                >   
-                    Title
-                </DropdownMenuCheckboxItem>
-                <DropdownMenuCheckboxItem
-                    checked={showActiveBar}
-                    onCheckedChange={setShowActiveBar}
-                >   
-                    Status
-                </DropdownMenuCheckboxItem>
-                <DropdownMenuCheckboxItem
-                    checked={showPanel}
-                    onCheckedChange={setShowPanel}
-                >   
-                    Priority
-                </DropdownMenuCheckboxItem>
+                {table.getAllColumns()
+                    .filter(column => dropdownColumnsIds.some(columnId => columnId === column.id))
+                    .map(column => (
+                        <DropdownMenuCheckboxItem
+                            key={column.id}
+                            id={column.id}
+                            checked={column.getIsVisible()}
+                            onCheckedChange={value => column.toggleVisibility(!!value)}
+                        >
+                            {column.id}
+                        </DropdownMenuCheckboxItem>
 
+                    ))}
             </DropdownMenuContent>
         </DropdownMenu>
     )
