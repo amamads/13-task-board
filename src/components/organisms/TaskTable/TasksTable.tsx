@@ -1,5 +1,5 @@
 import { type Task } from '@/data/tasks-data'
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '../ui/table'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../ui/table'
 import {
     flexRender, type Table as TableType,
 } from "@tanstack/react-table"
@@ -7,7 +7,6 @@ import {
 export default function TasksTable({ table }: { table: TableType<Task> }) {
     return (
         <Table>
-            {/* <TableCaption>yahohoho</TableCaption> */}
             <TableHeader>
                 {table.getHeaderGroups().map(headerGroup => (
                     <TableRow key={headerGroup.id}>

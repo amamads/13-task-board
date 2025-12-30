@@ -1,5 +1,5 @@
-import React from 'react'
-import { Navbar, StateCards, TaskArea } from './components'
+import { TaskArea } from "./components/pages/TaskArea";
+import { Navbar } from "./components/organisms/Navbar";
 
 export default function App() {
   return (

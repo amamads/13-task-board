@@ -1,7 +1,6 @@
-import React from 'react'
-import { Button } from './ui/button'
 import { ListTodo } from 'lucide-react'
-import { ModeToggle } from './ModeToggle'
+import { ModeToggle } from '../molecules/ModeToggle'
+import { Button } from '../ui/button'
 
 export function Navbar() {
     return (

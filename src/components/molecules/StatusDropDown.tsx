@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react"
-import { IoMdArrowUp } from "react-icons/io"
-import { IoArrowBack, IoArrowDown } from "react-icons/io5"
 import type { IconType } from "react-icons/lib"
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover"
 import { Button } from "../ui/button"
@@ -59,7 +57,7 @@ export const StatusDropDown = ({ table }: { table: TableType<Task> }) => {
 
     useEffect(() => {
         table.getColumn('status')?.setFilterValue(selectedStatus)
-    }, [selectedStatus])
+    }, [selectedStatus,table])
     return (
         <div>
             <Popover>
@@ -102,11 +100,6 @@ export const StatusDropDown = ({ table }: { table: TableType<Task> }) => {
                                     key={value}
                                     value={value}
                                     className="flex justify-between"
-                                    onSelect={(value) => {
-                                        // setSelectedStatus(
-                                        //     statuses.find((priority => priority.value === value)) || null
-                                        // )
-                                    }}
                                 >
                                     <Label className="flex items-center gap-3">
                                         {/* <Checkbox /> */}

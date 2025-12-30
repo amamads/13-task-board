@@ -1,8 +1,8 @@
-import { DropdownMenu, DropdownMenuItem, DropdownMenuTrigger } from './ui/dropdown-menu'
-import { useTheme } from './theme-provider'
+import { DropdownMenu, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu'
+import { useTheme } from '../providers/theme-provider'
 import { MonitorCog, Moon, Sun } from 'lucide-react';
 import { DropdownMenuContent } from '@radix-ui/react-dropdown-menu';
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 
 export function ModeToggle() {
 
