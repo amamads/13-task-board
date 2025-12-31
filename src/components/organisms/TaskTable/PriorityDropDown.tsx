@@ -2,21 +2,16 @@ import { useEffect, useState } from "react";
 import { IoMdArrowUp } from "react-icons/io";
 import { IoArrowBack, IoArrowDown } from "react-icons/io5";
 import type { IconType } from "react-icons/lib";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { Button } from "../ui/button";
-import { GoPlusCircle } from "react-icons/go";
-import { Separator } from "../ui/separator";
-import { Badge } from "../ui/badge";
-import {
-  Command,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from "../ui/command";
-import { Checkbox } from "../ui/checkbox";
-import { Label } from "../ui/label";
+import { Badge } from "../../atoms/badge";
 import type { Task } from "@/data/tasks-data";
 import type { Table as TableType } from "@tanstack/react-table";
+import { Checkbox } from "@radix-ui/react-checkbox";
+import  { Popover, PopoverTrigger, PopoverContent } from "../../atoms/popover";
+import { Separator } from"../../atoms/separator";
+import { GoPlusCircle } from "react-icons/go";
+import { Button } from "../../atoms/button";
+import { Command, CommandGroup, CommandInput, CommandItem } from "../../atoms/command";
+import { Label } from "@radix-ui/react-select";
 
 type Status = {
   value: string;

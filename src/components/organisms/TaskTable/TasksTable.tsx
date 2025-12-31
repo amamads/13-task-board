@@ -1,5 +1,5 @@
 import { type Task } from '@/data/tasks-data'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../ui/table'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../atoms/table'
 import {
     flexRender, type Table as TableType,
 } from "@tanstack/react-table"

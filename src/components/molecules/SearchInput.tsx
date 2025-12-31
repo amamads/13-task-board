@@ -1,4 +1,4 @@
-import { Input } from '../ui/input'
+import { Input } from '../atoms/input'
 import type { Task } from '@/data/tasks-data';
 import type { Table as TableType } from '@tanstack/react-table';
 

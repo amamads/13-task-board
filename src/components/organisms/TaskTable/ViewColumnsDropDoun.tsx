@@ -5,8 +5,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import { Button } from "../ui/button";
+} from "../../atoms/dropdown-menu";
+import { Button } from "../../atoms/button";
 import { BiColumns } from "react-icons/bi";
 import type { Task } from "@/data/tasks-data";
 import type { Table as TableType } from "@tanstack/react-table";

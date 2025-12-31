@@ -2,7 +2,7 @@ import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-r
 import type { Task } from '@/data/tasks-data';
 import type { Table as TableType } from '@tanstack/react-table';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@radix-ui/react-select';
-import { Button } from '../ui/button';
+import { Button } from '../atoms/button';
 
 
 export default function FooterArea({ table }: { table: TableType<Task> }) {

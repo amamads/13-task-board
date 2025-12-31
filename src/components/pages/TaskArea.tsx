@@ -10,11 +10,11 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { useState } from "react";
-import FooterArea from "../organisms/FooterArea";
+import   FooterArea from "../organisms/FooterArea";
 import HeaderArea from "../organisms/HeaderArea";
 import { tasksColumns } from "../organisms/TaskTable/tasks-columns";
 import TasksTable from "../organisms/TaskTable/TasksTable";
-import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
+import { Card, CardContent, CardFooter, CardHeader } from "../atoms/card";
 
 export function TaskArea() {
   const [sorting, setSorting] = useState<SortingState>([]);

@@ -1,5 +1,5 @@
 import type { Task } from "@/data/tasks-data";
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/atoms/dropdown-menu";
 import type { Column } from "@tanstack/react-table";
 import {
     ArrowUpDown

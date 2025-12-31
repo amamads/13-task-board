@@ -1,9 +1,9 @@
 import { IoCloseSharp } from "react-icons/io5";
-import SearchInput from "../atoms/SearchInput";
-import { PriorityDropDown } from "../molecules/PriorityDropDown";
-import { StatusDropDown } from "../molecules/StatusDropDown";
-import { ViewColumnsDropDoun } from "../molecules/ViewColumnsDropDoun";
-import  { Button } from "../ui/button";
+import SearchInput from "../molecules/SearchInput";
+import { PriorityDropDown } from "./TaskTable/PriorityDropDown";
+import { StatusDropDown } from "./TaskTable/StatusDropDown";
+import { ViewColumnsDropDoun } from "./TaskTable/ViewColumnsDropDoun";
+import { Button } from "../atoms/button";
 import type { Task } from "@/data/tasks-data";
 import type { Table as TableType } from "@tanstack/react-table";
 

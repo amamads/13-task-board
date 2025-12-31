@@ -1,9 +1,9 @@
 import type { Task } from "@/data/tasks-data";
 import type { ColumnDef } from "@tanstack/react-table";
-import { Checkbox } from "../../ui/checkbox";
-import { PriorityIcon } from "./PriotityIcon";
+import { Checkbox } from "../../atoms/checkbox";
+import { PriorityIcon } from "../../atoms/PriotityIcon";
 import { SortableHeader } from "./SortableHeader";
-import { StatusIcon } from "./StatusIcon";
+import { StatusIcon } from "../../atoms/StatusIcon";
 
 export const tasksColumns: ColumnDef<Task>[] = [
   {

@@ -1,5 +1,5 @@
 import { TaskArea } from "./components/pages/TaskArea";
-import { Navbar } from "./components/organisms/Navbar";
+import { Navbar } from "./components/molecules/Navbar";
 
 export default function App() {
   return (
